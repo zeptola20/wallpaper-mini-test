@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<CategoryProvider>(
+        ChangeNotifierProvider<CategoryProvider>(
           create: (context) => CategoryProvider(),
         ),
-        Provider<WallpaperProvider>(
+        ChangeNotifierProvider<WallpaperProvider>(
           create: (context) => WallpaperProvider(),
         ),
       ],

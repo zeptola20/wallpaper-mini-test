@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
+         
           appBarTheme: const AppBarTheme(
             color: Colors.white,
           ),

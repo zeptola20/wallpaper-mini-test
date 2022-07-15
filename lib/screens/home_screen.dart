@@ -171,12 +171,13 @@ class _searchBoxState extends State<searchBox> {
                 .searchWallpaper(item.text);
           });
         },
-        keyboardType: TextInputType.url,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.search,
         maxLines: 1,
         showCursor: true,
         cursorColor: const Color(0xFF05a081),
         decoration: InputDecoration(
-            counter: Container(),
+            counter: SizedBox(),
             prefixIcon: IconButton(
                 onPressed: () async {
                   await wallpaperData.searchWallpaper(wallpaperData.item);

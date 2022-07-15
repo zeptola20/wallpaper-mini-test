@@ -93,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: wi * .8,
                               height: he * .6,
                               child: Image.asset(
-                                  'assets/images/nothing-found.jpg'),
+                                'assets/images/nothing-found.jpg',
+                              ),
                             ),
                           )
                         : Consumer<WallpaperProvider>(

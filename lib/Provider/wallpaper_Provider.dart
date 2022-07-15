@@ -18,7 +18,8 @@ class WallpaperProvider with ChangeNotifier {
       loading = true;
       notifyListeners();
       var url = Uri.parse('https://api.pexels.com/v1/curated');
-      var response = await http.get(url, headers: {'Authorization': _apiKey});
+      var response = await http.get(url,
+          headers: {'Authorization': _apiKey}).timeout(Duration(seconds: 10));
       wallpaperModel = WallpaperModel.fromJson(json.decode(response.body));
       if (response.statusCode != 200) {
         error = true;
@@ -44,7 +45,8 @@ class WallpaperProvider with ChangeNotifier {
       } else {
         url = Uri.parse('https://api.pexels.com/v1/search?query=$item');
       }
-      var response = await http.get(url, headers: {'Authorization': _apiKey});
+      var response = await http.get(url,
+          headers: {'Authorization': _apiKey}).timeout(Duration(seconds: 10));
 
       wallpaperModel = WallpaperModel.fromJson(json.decode(response.body));
       if (response.statusCode != 200) {

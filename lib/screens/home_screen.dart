@@ -92,9 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: SizedBox(
                               width: wi * .8,
                               height: he * .6,
-                              child: ClipRRect(
-                                  child: Image.asset(
-                                      'assets/images/nothing-found.jpg')),
+                              child: Image.asset(
+                                  'assets/images/nothing-found.jpg'),
                             ),
                           )
                         : Consumer<WallpaperProvider>(
@@ -118,25 +117,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ?.photos?.length ??
                                               0,
                                           itemBuilder: (context, index) {
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                              child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: Image.network(
-                                                    value
-                                                        .wallpaperModel!
-                                                        .photos![index]
-                                                        .src!
-                                                        .portrait!,
-                                                    fit: BoxFit.cover,
-                                                    filterQuality:
-                                                        FilterQuality.high,
-                                                  )),
-                                            );
+                                            return ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.network(
+                                                  value
+                                                      .wallpaperModel!
+                                                      .photos![index]
+                                                      .src!
+                                                      .portrait!,
+                                                  fit: BoxFit.cover,
+                                                  filterQuality:
+                                                      FilterQuality.high,
+                                                ));
                                           })),
                                 )))
           ],

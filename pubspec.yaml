@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.3
   http: ^0.13.4
-  fade_shimmer: ^2.0.1
+  gallery_saver: ^2.3.2
 
 dev_dependencies:
   flutter_test:

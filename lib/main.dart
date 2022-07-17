@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:unsplash/Provider/category_Provider.dart';
 import 'package:unsplash/Provider/wallpaper_Provider.dart';
 import 'package:unsplash/screens/home_screen.dart';
+import 'package:unsplash/screens/imageView_screen.dart';
 
 void main() {
   Provider.debugCheckInvalidValueType = null;
@@ -25,8 +26,11 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        routes: {
+          ImageView.routeName: (context) => ImageView(),
+        },
         theme: ThemeData(
-         
+          textTheme: TextTheme(headline6: TextStyle(color: Color(0xFF060607))),
           appBarTheme: const AppBarTheme(
             color: Colors.white,
           ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:unsplash/models/wallpaper.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +33,9 @@ class WallpaperProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
+Future<void>saveGallery(String data)async{
+  await GallerySaver.saveImage(data);
+}
   Future<void> searchWallpaper(String item) async {
     this.item = item;
     if (item == 'curated') error = false;

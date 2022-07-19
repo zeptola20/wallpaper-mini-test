@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:unsplash/models/wallpaper.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 
-class WallpaperProvider with ChangeNotifier {
-  bool loading = false;
-  bool error = false;
+class WallpaperProvider extends GetxController {
+  RxBool loading = false.obs;
+  RxBool error = false.obs;
   String item = 'curated';
   final String _apiKey =
       '563492ad6f917000010000011c649aa03fc3487bbe60c4d64707811f';
@@ -16,53 +15,68 @@ class WallpaperProvider with ChangeNotifier {
 
   Future<void> randomPhoto() async {
     try {
-      loading = true;
-      notifyListeners();
+      loading.value = true;
       var url = Uri.parse('https://api.pexels.com/v1/curated');
-      var response = await http.get(url,
-          headers: {'Authorization': _apiKey}).timeout(Duration(seconds: 10));
-      wallpaperModel = WallpaperModel.fromJson(json.decode(response.body));
-      if (response.statusCode != 200) {
-        error = true;
-        notifyListeners();
+      var response = await http
+          .get(url, headers: {'Authorization': _apiKey})
+          .timeout(const Duration(seconds: 10))
+          .onError((error, stackTrace) {
+            Get.showSnackbar(const GetSnackBar(
+              title: "error",
+              message: "no intenrent connection",
+              duration: Duration(seconds: 2),
+            ));
+            throw Exception("error");
+          });
+      if (response.statusCode == 200) {
+        wallpaperModel = WallpaperModel.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("error");
       }
-      loading = false;
-      notifyListeners();
     } catch (e) {
-      error = true;
-      notifyListeners();
+      error.value = true;
+      print(e);
+    } finally {
+      loading.value = false;
     }
   }
-Future<void>saveGallery(String data)async{
-  await GallerySaver.saveImage(data);
-}
+
+  Future<void> saveGallery(String data) async {
+    await GallerySaver.saveImage(data);
+  }
+
   Future<void> searchWallpaper(String item) async {
     this.item = item;
-    if (item == 'curated') error = false;
+    if (item == 'curated') error.value = false;
     try {
-      loading = true;
-      notifyListeners();
+      loading.value = true;
       var url;
       if (item == 'curated') {
         url = Uri.parse('https://api.pexels.com/v1/curated');
       } else {
         url = Uri.parse('https://api.pexels.com/v1/search?query=$item');
       }
-      var response = await http.get(url,
-          headers: {'Authorization': _apiKey}).timeout(Duration(seconds: 10));
+      var response = await http
+          .get(url, headers: {'Authorization': _apiKey})
+          .timeout(const Duration(seconds: 10))
+          .onError((error, stackTrace) {
+            Get.showSnackbar(const GetSnackBar(
+              title: "error",
+              message: "no intenrent connection",
+              duration: Duration(seconds: 2),
+            ));
+            throw Exception("error");
+          });
 
-      wallpaperModel = WallpaperModel.fromJson(json.decode(response.body));
-      if (response.statusCode != 200) {
-        error = true;
-        notifyListeners();
+      if (response.statusCode == 200) {
+        wallpaperModel = WallpaperModel.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("error");
       }
-
-      loading = false;
-      notifyListeners();
     } catch (e) {
-      error = true;
-      notifyListeners();
+      error.value = true;
+    } finally {
+      loading.value = false;
     }
-    error = false;
   }
 }

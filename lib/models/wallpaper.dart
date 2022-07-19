@@ -23,9 +23,6 @@ class WallpaperModel {
 }
 
 class Photos {
-  int? id;
-  int? width;
-  int? height;
   String? url;
   String? photographer;
   String? photographerUrl;
@@ -36,10 +33,7 @@ class Photos {
   String? alt;
 
   Photos(
-      {this.id,
-      this.width,
-      this.height,
-      this.url,
+      {this.url,
       this.photographer,
       this.photographerUrl,
       this.photographerId,
@@ -49,9 +43,6 @@ class Photos {
       this.alt});
 
   Photos.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    width = json['width'];
-    height = json['height'];
     url = json['url'];
     photographer = json['photographer'];
     photographerUrl = json['photographer_url'];

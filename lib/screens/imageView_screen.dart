@@ -1,11 +1,7 @@
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:provider/provider.dart';
 import 'package:unsplash/Provider/wallpaper_Provider.dart';
-import 'package:unsplash/screens/home_screen.dart';
 
 class ImageView extends StatefulWidget {
   const ImageView({Key? key}) : super(key: key);

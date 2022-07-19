@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:unsplash/Provider/category_Provider.dart';
 import 'package:unsplash/Provider/wallpaper_Provider.dart';
@@ -16,28 +17,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<CategoryProvider>(
-          create: (context) => CategoryProvider(),
+    return GetMaterialApp(
+      routes: {
+        ImageView.routeName: (context) => ImageView(),
+      },
+      theme: ThemeData(
+        textTheme: TextTheme(headline6: TextStyle(color: Color(0xFF060607))),
+        appBarTheme: const AppBarTheme(
+          color: Colors.white,
         ),
-        ChangeNotifierProvider<WallpaperProvider>(
-          create: (context) => WallpaperProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        routes: {
-          ImageView.routeName: (context) => ImageView(),
-        },
-        theme: ThemeData(
-          textTheme: TextTheme(headline6: TextStyle(color: Color(0xFF060607))),
-          appBarTheme: const AppBarTheme(
-            color: Colors.white,
-          ),
-        ),
-        debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
       ),
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
     );
   }
 }
